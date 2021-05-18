@@ -1,1 +1,27 @@
-<h2>You have done it!</h2>
+<?php
+/** @var \Mateus\Novo\Block\WeatherBlock $block */
+?>
+<?php
+    $result = $block->getWeatherInformation();
+    $main = $result->weather[0]['main'];
+    $description = $result->weather[0]['description'];
+    $temp = $result->main['temp'];
+    $temp_min = $result->main['temp_min'];
+    $temp_max = $result->main['temp_max'];
+    $umid = $result->main['humidity'];
+?>
+
+<style>
+    .container{color: red;} div{border: 1px solid #dddddd;}
+</style>
+
+<body>
+    <h1 id="label_try"><?php echo $block->getLabel(); ?> </h1>
+    <div name="container">
+        <div>The weather in Hanoi is <?php echo $main; ?> </div>
+        <div>Weather description: <?php echo $description; ?>.</div>
+        <div>The temperature now is <?php echo intval($temp) - 273; ?> °C</div>
+        <div>Min <?php echo intval($temp_min) - 273; ?> °C - Max <?php echo intval($temp_max) -273; ?> °C.</div>
+        <div>The humidity is <?php echo $umid; ?>% </div>
+    </div>
+</body>

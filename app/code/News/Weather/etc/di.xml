@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <preference for="News\Weather\Api\Data\PostInterface"
+                type="News\Weather\Model\Post"/>
+    <preference for="News\Weather\Api\PostRepositoryInterface" type="News\Weather\Model\PostRepository"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="news_post_grid_data_source" xsi:type="string">News\Weather\Model\ResourceModel\Post\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="base_tax_amount" xsi:type="string">sales_order.base_tax_amount</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>
