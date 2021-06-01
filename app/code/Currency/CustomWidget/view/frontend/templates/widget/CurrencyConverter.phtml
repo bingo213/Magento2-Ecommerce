@@ -1,8 +1,4 @@
 <?php if ($block->getData('title')) : ?>
-    <div class="hb-wrapper above-padding below-padding" style="background: #ffffff;">
-    <div class="page-title-main">
-        <strong><?php echo $block->getData('title'); ?> </strong>
-    </div>
     <div class="block-content">
         <?php
         $er_url = "https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=68";
@@ -20,12 +16,13 @@
         $xml = simplexml_load_string($res);
         $json = json_encode($xml);
         $rs = json_decode($json, TRUE);
-        echo '<table style="width: 50%" id="currency">';
+        echo '<table id="currency">';
         echo  "<thead><tr>
-        <th>Mã tiền tệ</th>
-        <th>Tên tiền tệ</th>
-        <th>Giá mua</th>
-        <th>Giá bán</th>
+        <th>Mã ngoại tệ</th>
+        <th>Tên ngoại tệ</th>
+        <th>Mua vào</th>
+        <th>Bán ra</th>
+        <th>Chuyển khoản</th>
         </tr></thead>";
         ?>
         <style>
@@ -33,36 +30,23 @@
         tr,
         th,
         td {
-            border: 1px solid gray;
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
             border-collapse: collapse;
+            border: 1px solid #D6DBDF ;
             text-align: center;
         }
         th{
-            background-color: #74b9ff;
-            color: #ffffff;
+            padding: 10px; 
+            background-color: #1B4F72;
+            color: #ECF0F1 ;
+            min-width: 100px;
         }
-        .link-currency>a{
-            text-decoration: none;
-            background-color: #badc58;
-            color: #ffffff;
-            position: fixed;
-            border-radius: 5px 0px 0px 5px;
-            right: 0px;
-            top: 200px;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px 10px 10px 5px;
-            width: 100px;
-            z-index: 2;
-        }
-        .link-currency>a:hover{
-            background-color: #f1c40f;
+        td{
+            height: 30px;
         }
 
         </style>
-        <div class="link-currency">
-        <a href="#currency">Currency</a>
-        </div>
         <?php
         foreach ($rs["Exrate"] as $r) {
         $r = $r["@attributes"];
@@ -78,6 +62,9 @@
         echo "</td>";
         echo "<td>";
         echo $r["Sell"];
+        echo "</td>";
+        echo "<td>";
+        echo $r["Transfer"];
         echo "</td>";
         echo "</tr>";
         }
