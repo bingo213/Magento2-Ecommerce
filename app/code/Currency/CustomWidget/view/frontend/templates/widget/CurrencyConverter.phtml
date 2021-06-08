@@ -1,6 +1,12 @@
 <?php if ($block->getData('title')) : ?>
     <div class="block-content">
         <?php
+        $base_path = "http://example.com/static/version1621615591/frontend/Magento/luma/vi_VN/images/";
+        $images = [];
+        for($x = 1; $x <= 20; $x++){
+            $image_url = $base_path . $x . ".png";
+            array_push($images, $image_url);
+        }
         $er_url = "https://portal.vietcombank.com.vn/Usercontrols/TVPortal.TyGia/pXML.aspx?b=68";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $er_url);
@@ -34,7 +40,8 @@
             font-family: 'Roboto', sans-serif;
             border-collapse: collapse;
             border: 1px solid #D6DBDF ;
-            text-align: center;
+            text-align: center !important;
+            vertical-align: middle !important;
         }
         th{
             padding: 10px; 
@@ -42,17 +49,35 @@
             color: #ECF0F1 ;
             min-width: 100px;
         }
-        td{
-            height: 30px;
+        span .span{
+            padding-bottom: 10px;
         }
-
+        td{
+            position: relative;
+        }
+        .curcode{
+            margin: 0px !important;
+            display: inline-block;
+            position: absolute;
+            right: 20px;
+            bottom: 10px
+        }
+        .flag{
+            display: inline-block;
+            position: absolute;
+            top: 5px;
+            left: 20px;
+        }
         </style>
         <?php
+        $i = 0;
         foreach ($rs["Exrate"] as $r) {
         $r = $r["@attributes"];
         echo "<tr>";
         echo "<td>";
-        echo $r["CurrencyCode"];
+        echo '<img class="flag" width="30px" src="' . $images[$i] . '" alt="flag">';
+        $i += 1;
+        echo '<p class="curcode">' . $r["CurrencyCode"] . '</p>';
         echo "</td>";
         echo "<td>";
         echo $r["CurrencyName"];
